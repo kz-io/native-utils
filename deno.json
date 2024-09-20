@@ -1,0 +1,77 @@
+{
+  "name": "@kz/native-utils",
+  "version": "0.0.1",
+  "exports": {
+    ".": "./src/mod.ts",
+    "./compare": "./compare/mod.ts",
+    "./dispose": "./dispose/mod.ts",
+    "./exceptions": "./exceptions/mod.ts",
+    "./observe": "./observe/mod.ts",
+    "./types": "./types/mod.ts",
+    "./warn": "./warn/mod.ts",
+    "./ext": "./ext/mod.ts"
+  },
+  "compilerOptions": {
+    "experimentalDecorators": true
+  },
+  "lint": {
+    "rules": {
+      "tags": [
+        "recommended"
+      ],
+      "include": [
+        "ban-untagged-todo",
+        "camelcase",
+        "default-param-last",
+        "eqeqeq",
+        "explicit-function-return-type",
+        "no-throw-literal"
+      ]
+    }
+  },
+  "fmt": {
+    "indentWidth": 2,
+    "lineWidth": 80,
+    "proseWrap": "preserve",
+    "useTabs": false,
+    "singleQuote": true,
+    "semiColons": true
+  },
+  "tasks": {
+    "fmt": "deno fmt && deno fmt --check",
+    "lint": "deno lint",
+    "test": "deno test --allow-all --coverage --doc --trace-leaks",
+    "cov": "deno task test && deno task cov:gen && deno task cov:report",
+    "cov:gen": "deno coverage coverage --lcov --output=cov.lcov",
+    "cov:report": "deno coverage --html coverage",
+    "docs": "deno doc --html --name=@kz/native-utils ./object/mod.ts ./string/mod.ts ./boolean/mod.ts ./regexp/mod.ts",
+    "jsr:check": "deno publish --dry-run --allow-dirty",
+    "pre-commit": "deno task cov && deno task docs && deno task jsr:check && deno task lint && deno task fmt"
+  },
+  "imports": {
+    "@std/assert": "jsr:@std/assert@^0.221.0",
+    "@std/testing": "jsr:@std/testing@^0.221.0",
+    "@kz/core/types": "https://denopkg.com/kz-io/core@dev/types/mod.ts"
+  },
+  "exclude": [
+    ".git",
+    "cov",
+    "coverage",
+    "testdata",
+    "docs"
+  ],
+  "publish": {
+    "include": [
+      "README.md",
+      "LICENSE",
+      "mod.ts",
+      "**/*.ts",
+      "deno.json",
+      "deno.lock",
+      "**/*.json"
+    ],
+    "exclude": [
+      "**/*.test.ts"
+    ]
+  }
+}
